@@ -13,6 +13,7 @@ class LogData {
     func getLogs()-> [NotificationData]?{
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<NotificationData> = NotificationData.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "onDate", ascending: false)]
         do {
             let results = try context.fetch(fetchRequest)
             return results

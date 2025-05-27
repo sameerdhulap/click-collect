@@ -2,29 +2,29 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788" systemVersion="24F74" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="APILog" representedClassName="APILog" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="mode" optional="YES" attributeType="String"/>
-        <attribute name="onDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="mode" attributeType="String"/>
+        <attribute name="onDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="type" attributeType="String"/>
     </entity>
     <entity name="AppData" representedClassName="AppData" syncable="YES" codeGenerationType="class">
         <attribute name="profile" attributeType="String"/>
-        <attribute name="profileProperties" attributeType="Transformable" valueTransformerName="" customClassName="[String:String]"/>
+        <attribute name="profileProperties" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String:String]"/>
     </entity>
     <entity name="ISOChrone" representedClassName="ISOChrone" syncable="YES" codeGenerationType="class">
         <attribute name="addedOn" attributeType="Date" defaultDateTimeInterval="769500660" usesScalarValueType="NO"/>
-        <attribute name="attribute" optional="YES" attributeType="Transformable" customClassName="[String:String]"/>
+        <attribute name="attribute" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String:String]"/>
         <attribute name="distanceRequest" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="fullfillOn" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="updatedOn" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="updatedOn" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="NotificationData" representedClassName="NotificationData" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="isInside" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="mode" optional="YES" attributeType="String"/>
-        <attribute name="onDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isInside" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="mode" attributeType="String"/>
+        <attribute name="onDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" attributeType="String"/>
     </entity>
 </model>

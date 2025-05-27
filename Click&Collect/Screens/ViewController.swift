@@ -23,7 +23,11 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var btnRestaurantLocation: UIButton!
     @IBOutlet weak var lblRestaureantName: UILabel!
-    let AssetMonitoringAtributes = ["ProtectedRegionSlot":"2","radius":"200", "optimizeDistanceRequest":"false"]
+    let AssetMonitoringAtributes = ["ProtectedRegionSlot":String(AppConfig.liveTracking.ProtectedRegionSlot),
+                                    "radius":String(AppConfig.liveTracking.poiRadius),
+                                    "action":String(AppConfig.liveTracking.poiRadius),
+                                    "optimizeDistanceRequest":"false"]
+    
     let ClickAndCollectAtributes = ["optimizeDistanceRequest":"false"]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +79,7 @@ class ViewController: UIViewController {
     
     @IBAction func onTapOrderForMe(_ sender: UIButton) {
         //Show Order form
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = self.storyboard!
         if let modalVC = storyboard.instantiateViewController(withIdentifier: "OrderViewController") as? OrderViewController {
             modalVC.modalPresentationStyle = .formSheet // or .fullScreen, .pageSheet, etc.
             modalVC.modalTransitionStyle = .coverVertical // optional
@@ -126,6 +130,16 @@ class ViewController: UIViewController {
                 (UIApplication.shared.delegate as! AppDelegate).startMonitoringWithWoosmap()
                 WoosmapGeofenceManager.shared.refreshPOIs()
             }
+        }
+    }
+    
+    @IBAction func onTapLog(_ sender: UIBarButtonItem) {
+        let storyboard = self.storyboard!
+        if let modalVC = storyboard.instantiateViewController(withIdentifier: "NotificationViewController") as? NotificationViewController {
+            modalVC.modalPresentationStyle = .formSheet // or .fullScreen, .pageSheet, etc.
+            modalVC.modalTransitionStyle = .coverVertical // optional
+            
+            self.navigationController?.pushViewController(modalVC, animated: true)
         }
     }
 }

@@ -63,7 +63,13 @@ class OrderViewController: UIViewController {
         assetRequest.limit = 5
         assetRequest.location = WMLocation.init(coordinates:  location)
         var assetResult: [WMStoresService.Store]?
-        assetResult = try? await WMApi.stores.search(assetRequest)
+        do{
+            assetResult = try await WMApi.stores.search(assetRequest)
+        }
+        catch let error as NSError{
+            print("Error: \(error)")
+        }
+        
         if let result = assetResult{
             result.forEach({ match in
                 filterStore.append(match)
@@ -102,7 +108,7 @@ class OrderViewController: UIViewController {
                 }
             }
             
-            delegate?.OrderDelegate(self, OrderPlace: ["id": store.store_id, "name": store.name,"address": addressLine, "location": "\(store.coordinate.latitude),\(store.coordinate.longitude)", "radius": "10","distanceMode": selectedMode])
+            delegate?.OrderDelegate(self, OrderPlace: ["id": store.store_id, "name": store.name,"address": addressLine, "location": "\(store.coordinate.latitude),\(store.coordinate.longitude)", "radius": String(AppConfig.passiveTracking.isochroneDistance) ,"distanceMode": selectedMode])
             present(alertController, animated: true, completion: nil)
             
         }

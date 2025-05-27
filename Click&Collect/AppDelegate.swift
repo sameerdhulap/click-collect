@@ -11,7 +11,6 @@ import CoreLocation
 import WoosmapGeofencing
 import Woosmap
 
-
 @objc(DictionaryStringTransformer)
 class DictionaryStringTransformer: ValueTransformer {
     
@@ -103,17 +102,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate{
-    
     public func startMonitoringWithWoosmap(){
         if let currentProfile = ApplicationData().getProfile() {
+            WMSettings.shared().key = AppConfig.privateKey
             WoosmapGeofenceManager.shared.getLocationService().locationServiceDelegate = dataEvent
             WoosmapGeofenceManager.shared.getLocationService().searchAPIDataDelegate = dataEvent
             WoosmapGeofenceManager.shared.getLocationService().regionDelegate = dataEvent
-            WoosmapGeofenceManager.shared.setWoosmapAPIKey(key: "3cd8ada3-e14f-47d1-90b4-5587c824ba8a")
-            WMSettings.shared().key = "3cd8ada3-e14f-47d1-90b4-5587c824ba8a"
+            WoosmapGeofenceManager.shared.setWoosmapAPIKey(key: WMSettings.shared().key)
+            
             if(currentProfile.profile == "Asset Monitoring") {
                 WoosmapGeofenceManager.shared.startTracking(configurationProfile: .passiveTracking)
-                WoosmapGeofenceManager.shared.OptimizeDistanceRequest = false
+                
                 if let attributes:[String:String] = currentProfile.profileProperties{
                     if let r = attributes["radius"]{
                         WoosmapGeofenceManager.shared.setPoiRadius(radius: r)
@@ -121,22 +120,29 @@ extension AppDelegate{
                     if let slots = attributes["ProtectedRegionSlot"]{
                         try? WoosmapGeofenceManager.shared.setProtectedRegionSlot(Int(slots) ?? 0)
                     }
+                    if let optimize = attributes["optimizeDistanceRequest"]{
+                        WoosmapGeofenceManager.shared.OptimizeDistanceRequest = optimize == "true" ? true : false
+                    }
                 }
                 
             }
             else if(currentProfile.profile == "Click&Collect"){
                 WoosmapGeofenceManager.shared.getLocationService().distanceAPIDataDelegate = dataEvent
                 WoosmapGeofenceManager.shared.startTracking(configurationProfile: .liveTracking)
-                WoosmapGeofenceManager.shared.OptimizeDistanceRequest = false
-                
-                if let mode = currentProfile.profileProperties?["distanceMode"] {
-                    if mode == "driving" {
-                        WoosmapGeofenceManager.shared.setDistanceAPIMode(mode:DistanceMode.driving)
+                if let attributes:[String:String] = currentProfile.profileProperties{
+                    if let mode = attributes["distanceMode"] {
+                        if mode == "driving" {
+                            WoosmapGeofenceManager.shared.setDistanceAPIMode(mode:DistanceMode.driving)
+                        }
+                        else if mode  == "walking" {
+                            WoosmapGeofenceManager.shared.setDistanceAPIMode(mode:DistanceMode.walking)
+                        }
                     }
-                    else if mode  == "walking" {
-                        WoosmapGeofenceManager.shared.setDistanceAPIMode(mode:DistanceMode.walking)
+                    if let optimize = attributes["optimizeDistanceRequest"]{
+                        WoosmapGeofenceManager.shared.OptimizeDistanceRequest = optimize == "true" ? true : false
                     }
                 }
+                
                 
             }
             

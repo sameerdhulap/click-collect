@@ -8,23 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5F0A3E0D2DDDECB000530B02 /* Woosmap in Frameworks */ = {isa = PBXBuildFile; productRef = 5F0A3E0C2DDDECB000530B02 /* Woosmap */; };
-		5FE92F222DE077F2006D38AA /* WoosmapGeofencing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FE92F212DE077F2006D38AA /* WoosmapGeofencing.framework */; };
-		5FE92F232DE077F2006D38AA /* WoosmapGeofencing.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5FE92F212DE077F2006D38AA /* WoosmapGeofencing.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5F93D9A02DE58B94000AB689 /* WoosmapGeofencing in Frameworks */ = {isa = PBXBuildFile; productRef = 5F93D99F2DE58B94000AB689 /* WoosmapGeofencing */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		5FE92F242DE077F3006D38AA /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				5FE92F232DE077F2006D38AA /* WoosmapGeofencing.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5F0A3DE62DDDA2C400530B02 /* Click&Collect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Click&Collect.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,7 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FE92F222DE077F2006D38AA /* WoosmapGeofencing.framework in Frameworks */,
+				5F93D9A02DE58B94000AB689 /* WoosmapGeofencing in Frameworks */,
 				5F0A3E0D2DDDECB000530B02 /* Woosmap in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,7 +87,6 @@
 				5F0A3DE22DDDA2C400530B02 /* Sources */,
 				5F0A3DE32DDDA2C400530B02 /* Frameworks */,
 				5F0A3DE42DDDA2C400530B02 /* Resources */,
-				5FE92F242DE077F3006D38AA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -114,6 +98,7 @@
 			name = "Click&Collect";
 			packageProductDependencies = (
 				5F0A3E0C2DDDECB000530B02 /* Woosmap */,
+				5F93D99F2DE58B94000AB689 /* WoosmapGeofencing */,
 			);
 			productName = "Click&Collect";
 			productReference = 5F0A3DE62DDDA2C400530B02 /* Click&Collect.app */;
@@ -145,6 +130,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				5F0A3E0B2DDDECB000530B02 /* XCRemoteSwiftPackageReference "sdk-ios-distribution" */,
+				5F93D99E2DE58B94000AB689 /* XCRemoteSwiftPackageReference "geofencing-ios-sdk-spm-release" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5F0A3DE72DDDA2C400530B02 /* Products */;
@@ -196,8 +182,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -231,8 +217,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -400,6 +386,14 @@
 				minimumVersion = 1.1.0;
 			};
 		};
+		5F93D99E2DE58B94000AB689 /* XCRemoteSwiftPackageReference "geofencing-ios-sdk-spm-release" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Woosmap/geofencing-ios-sdk-spm-release";
+			requirement = {
+				kind = exactVersion;
+				version = "4.3.12-beta1";
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -407,6 +401,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5F0A3E0B2DDDECB000530B02 /* XCRemoteSwiftPackageReference "sdk-ios-distribution" */;
 			productName = Woosmap;
+		};
+		5F93D99F2DE58B94000AB689 /* WoosmapGeofencing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5F93D99E2DE58B94000AB689 /* XCRemoteSwiftPackageReference "geofencing-ios-sdk-spm-release" */;
+			productName = WoosmapGeofencing;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
