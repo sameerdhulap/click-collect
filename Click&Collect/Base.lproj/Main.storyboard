@@ -180,11 +180,49 @@
                                             <constraint firstItem="aKk-Ak-1at" firstAttribute="centerY" secondItem="IY5-VU-al9" secondAttribute="centerY" id="tlb-rs-OiY"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RGJ-FT-vU4">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RGJ-FT-vU4" userLabel="View-empty">
                                         <rect key="frame" x="0.0" y="287" width="373" height="305"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ySi-zK-NS4" userLabel="View-log">
+                                                <rect key="frame" x="0.0" y="284" width="373" height="21"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Distance Request:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m3U-Dh-KtH">
+                                                        <rect key="frame" x="10" y="0.0" width="180" height="21"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="OFI-t1-JQl"/>
+                                                            <constraint firstAttribute="width" constant="180" id="qNc-f5-LaU"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" name="TextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HDU-qF-MwB">
+                                                        <rect key="frame" x="200" y="0.0" width="163" height="21"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="21" id="xQJ-YM-QbV"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" name="TextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="m3U-Dh-KtH" firstAttribute="leading" secondItem="ySi-zK-NS4" secondAttribute="leading" constant="10" id="5ye-hH-EJj"/>
+                                                    <constraint firstItem="HDU-qF-MwB" firstAttribute="leading" secondItem="m3U-Dh-KtH" secondAttribute="trailing" constant="10" id="FtF-XM-cXe"/>
+                                                    <constraint firstItem="HDU-qF-MwB" firstAttribute="top" secondItem="ySi-zK-NS4" secondAttribute="top" id="KGt-5E-Wqi"/>
+                                                    <constraint firstItem="m3U-Dh-KtH" firstAttribute="centerY" secondItem="ySi-zK-NS4" secondAttribute="centerY" id="TMc-g3-NaV"/>
+                                                    <constraint firstAttribute="height" constant="21" id="Why-PY-KQb"/>
+                                                    <constraint firstAttribute="trailing" secondItem="HDU-qF-MwB" secondAttribute="trailing" constant="10" id="fSe-Pe-gFN"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="ySi-zK-NS4" secondAttribute="bottom" id="KWz-8e-Aqy"/>
+                                            <constraint firstItem="ySi-zK-NS4" firstAttribute="leading" secondItem="RGJ-FT-vU4" secondAttribute="leading" id="dS7-xt-ovR"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="mSL-gj-bJl"/>
+                                            <constraint firstAttribute="trailing" secondItem="ySi-zK-NS4" secondAttribute="trailing" id="sBx-ni-LM4"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -216,7 +254,9 @@
                     <connections>
                         <outlet property="btnEta" destination="Rfz-5g-z5A" id="ieH-P9-cv7"/>
                         <outlet property="btnRestaurantLocation" destination="KIl-Vf-lHl" id="SxX-uw-Eb7"/>
+                        <outlet property="lblCount" destination="HDU-qF-MwB" id="lwC-tU-psp"/>
                         <outlet property="lblRestaureantName" destination="Rz9-iJ-kcM" id="B0O-4x-Mr1"/>
+                        <outlet property="vwLog" destination="ySi-zK-NS4" id="uxH-DX-pbo"/>
                         <outlet property="vwModeAsset" destination="sBJ-TC-eKS" id="6iH-rh-Yay"/>
                         <outlet property="vwModeClickCollect" destination="fWJ-bk-fcl" id="fb5-F5-h6C"/>
                     </connections>

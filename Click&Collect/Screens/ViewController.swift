@@ -24,6 +24,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnEta: UIButton!
     @IBOutlet weak var btnRestaurantLocation: UIButton!
     @IBOutlet weak var lblRestaureantName: UILabel!
+    
+    @IBOutlet weak var vwLog: UIView!
+    @IBOutlet weak var lblCount: UILabel!
+    
     let AssetMonitoringAtributes = ["ProtectedRegionSlot":String(AppConfig.liveTracking.ProtectedRegionSlot),
                                     "radius":String(AppConfig.liveTracking.poiRadius),
                                     "action":String(AppConfig.liveTracking.poiRadius),
@@ -42,9 +46,15 @@ class ViewController: UIViewController {
             if(currentProfile.profile == "Asset Monitoring"){
                 vwModeAsset.isHidden = false
                 vwModeClickCollect.isHidden = !vwModeAsset.isHidden
+                vwLog.isHidden = !vwModeAsset.isHidden
             }else if(currentProfile.profile == "Click&Collect"){
                 vwModeAsset.isHidden = true
                 vwModeClickCollect.isHidden = !vwModeAsset.isHidden
+                vwLog.isHidden = !vwModeAsset.isHidden
+                if let zone = ISOChroneData().getActiveZone(){
+                    lblCount.text = String(zone.distanceRequest)
+                }
+                
                 if let attributes = currentProfile.profileProperties {
                     if let name = attributes["name"]{
                         if let address = attributes["address"]{
@@ -76,6 +86,19 @@ class ViewController: UIViewController {
             vwModeAsset.isHidden = false
             vwModeClickCollect.isHidden = !vwModeAsset.isHidden
         }
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleDistanceNotification(_:)),
+                                               name: .distanceRequested,
+                                               object: nil)
+    }
+    
+    
+    @objc func handleDistanceNotification(_ notification: Notification) {
+        //Update UI
+        if let zone = ISOChroneData().getActiveZone(){
+            lblCount.text = String(zone.distanceRequest)
+        }
     }
     
     @IBAction func onTapOrderForMe(_ sender: UIButton) {
@@ -91,8 +114,7 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func onTapOrderReceived(_ sender: UIButton) {
-        
+    fileprivate func switchToPassiveTracking() {
         let newProfileAdded = ApplicationData().addProfile( profile: "Asset Monitoring", attribute:AssetMonitoringAtributes)
         //Update UI
         if(newProfileAdded){
@@ -100,6 +122,7 @@ class ViewController: UIViewController {
                 if(currentProfile.profile == "Asset Monitoring"){
                     vwModeAsset.isHidden = false
                     vwModeClickCollect.isHidden = !vwModeAsset.isHidden
+                    vwLog.isHidden = !vwModeAsset.isHidden
                 }
                 else{
                     debugPrint( "Something went wrong, Unknown Profile \(currentProfile.profile!)")
@@ -113,25 +136,12 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func onTapOrderReceived(_ sender: UIButton) {
+        switchToPassiveTracking()
+    }
+    
     @IBAction func onTapCancelORder(_ sender: UIButton) {
-        
-        let newProfileAdded = ApplicationData().addProfile( profile: "Asset Monitoring", attribute:AssetMonitoringAtributes)
-        //Update UI
-        if(newProfileAdded){
-            if let currentProfile = ApplicationData().getProfile() {
-                if(currentProfile.profile == "Asset Monitoring"){
-                    vwModeAsset.isHidden = false
-                    vwModeClickCollect.isHidden = !vwModeAsset.isHidden
-                }else{
-                    debugPrint( "Something went wrong, Unknown Profile \(currentProfile.profile!)")
-                }
-                //Change SDK Profile
-                (UIApplication.shared.delegate as! AppDelegate).stopGeofencing()
-                RegionIsochrones.deleteAll()
-                (UIApplication.shared.delegate as! AppDelegate).startMonitoringWithWoosmap()
-                WoosmapGeofenceManager.shared.refreshPOIs()
-            }
-        }
+        switchToPassiveTracking()
     }
     
     @IBAction func onTapLog(_ sender: UIBarButtonItem) {
@@ -215,6 +225,7 @@ extension ViewController:OrderDelegate{
                if(currentProfile.profile == "Click&Collect"){
                     vwModeAsset.isHidden = true
                     vwModeClickCollect.isHidden = !vwModeAsset.isHidden
+                   vwLog.isHidden = !vwModeAsset.isHidden
                    if let name = attributes["name"]{
                        if let address = attributes["address"]{
                            lblRestaureantName.text = "\(name) \n\(address)"

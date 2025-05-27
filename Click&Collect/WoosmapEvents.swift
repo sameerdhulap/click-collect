@@ -113,6 +113,7 @@ internal class WoosmapEvent: LocationServiceDelegate, SearchAPIDelegate, Regions
         let _ = ApiLogData().addAPILog(type: "Distance", profile: config.profile!)
         ISOChroneData().updateCount(isReached: false)
         
+        NotificationCenter.default.post(name: .distanceRequested, object: self, userInfo: [:])
     }
     
     /// Called when distance api error capture
@@ -213,4 +214,5 @@ extension Notification.Name {
     static let newPOISaved = Notification.Name("newPOISaved")
     static let updateRegions = Notification.Name("updateRegions")
     static let didEventPOIRegion = Notification.Name("didEventPOIRegion")
+    static let distanceRequested = Notification.Name("distanceRequested")
 }
