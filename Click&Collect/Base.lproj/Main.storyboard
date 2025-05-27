@@ -24,7 +24,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fWJ-bk-fcl" userLabel="Click&amp;CollectMonitoring">
                                         <rect key="frame" x="0.0" y="0.0" width="373" height="200"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mode: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1K0-cE-C2V">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Mode: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1K0-cE-C2V">
                                                 <rect key="frame" x="15.000000000000004" y="15" width="52.333333333333343" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="86U-6b-6t9"/>
@@ -35,7 +35,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click &amp; Collect Mode is ON" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ef-dg-TW0">
-                                                <rect key="frame" x="77.333333333333329" y="15" width="204.66666666666669" height="20"/>
+                                                <rect key="frame" x="77.333333333333329" y="15" width="221.66666666666669" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="41h-yJ-c8E"/>
                                                 </constraints>
@@ -91,6 +91,21 @@
                                                 <buttonConfiguration key="configuration" style="plain" title="12,12">
                                                     <fontDescription key="titleFontDescription" type="system" pointSize="10"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="onTapShowLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gK6-d2-qKX"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rfz-5g-z5A">
+                                                <rect key="frame" x="309" y="10" width="54" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="54" id="Z0c-wd-EbY"/>
+                                                    <constraint firstAttribute="height" constant="30" id="ZXz-vd-vbC"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="ETA"/>
+                                                <connections>
+                                                    <action selector="onTapEta:" destination="BYZ-38-t0r" eventType="touchUpInside" id="g8J-2o-srg"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" name="palette3"/>
@@ -98,10 +113,13 @@
                                             <constraint firstItem="E1e-gQ-4xD" firstAttribute="top" secondItem="eEP-bV-TJ9" secondAttribute="bottom" constant="20" id="19A-nS-aHy"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="4Ot-Hq-vWC"/>
                                             <constraint firstItem="Rz9-iJ-kcM" firstAttribute="top" secondItem="Ydc-MN-6xc" secondAttribute="top" id="5bf-4V-uTt"/>
+                                            <constraint firstAttribute="trailing" secondItem="Rfz-5g-z5A" secondAttribute="trailing" constant="10" id="660-eF-Cqy"/>
                                             <constraint firstItem="Ydc-MN-6xc" firstAttribute="top" secondItem="4ef-dg-TW0" secondAttribute="bottom" constant="8" symbolic="YES" id="6MQ-sy-8RQ"/>
                                             <constraint firstItem="eEP-bV-TJ9" firstAttribute="top" secondItem="KIl-Vf-lHl" secondAttribute="bottom" constant="20" id="7si-I0-YlY"/>
                                             <constraint firstAttribute="trailing" secondItem="eEP-bV-TJ9" secondAttribute="trailing" constant="10" id="8Q7-e1-odY"/>
                                             <constraint firstAttribute="trailing" secondItem="E1e-gQ-4xD" secondAttribute="trailing" constant="10" id="BxL-DQ-nin"/>
+                                            <constraint firstItem="Rfz-5g-z5A" firstAttribute="top" secondItem="fWJ-bk-fcl" secondAttribute="top" constant="10" id="IBu-SH-Qxw"/>
+                                            <constraint firstItem="Rfz-5g-z5A" firstAttribute="leading" secondItem="4ef-dg-TW0" secondAttribute="trailing" constant="10" id="LYS-OG-G6k"/>
                                             <constraint firstItem="KIl-Vf-lHl" firstAttribute="top" secondItem="Rz9-iJ-kcM" secondAttribute="bottom" constant="7.6699999999999999" id="MWE-0v-BKE"/>
                                             <constraint firstItem="E1e-gQ-4xD" firstAttribute="leading" secondItem="fWJ-bk-fcl" secondAttribute="leading" constant="10" id="QKh-eP-P6T"/>
                                             <constraint firstItem="Rz9-iJ-kcM" firstAttribute="leading" secondItem="Ydc-MN-6xc" secondAttribute="trailing" constant="8" symbolic="YES" id="Xgo-CL-4tX"/>
@@ -196,6 +214,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="btnEta" destination="Rfz-5g-z5A" id="ieH-P9-cv7"/>
                         <outlet property="btnRestaurantLocation" destination="KIl-Vf-lHl" id="SxX-uw-Eb7"/>
                         <outlet property="lblRestaureantName" destination="Rz9-iJ-kcM" id="B0O-4x-Mr1"/>
                         <outlet property="vwModeAsset" destination="sBJ-TC-eKS" id="6iH-rh-Yay"/>
@@ -461,6 +480,38 @@
             </objects>
             <point key="canvasLocation" x="1635.8778625954199" y="-2.1126760563380285"/>
         </scene>
+        <!--Restaurant-->
+        <scene sceneID="S2D-mZ-LTT">
+            <objects>
+                <viewController storyboardIdentifier="MapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CZi-49-koP" customClass="MapViewController" customModule="Click_Collect" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Ar-2W-yxT">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ccb-ey-Mpp">
+                                <rect key="frame" x="0.0" y="162" width="393" height="622"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="N2p-OK-qQg"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="N2p-OK-qQg" firstAttribute="bottom" secondItem="Ccb-ey-Mpp" secondAttribute="bottom" id="9Ts-iu-SA9"/>
+                            <constraint firstItem="N2p-OK-qQg" firstAttribute="trailing" secondItem="Ccb-ey-Mpp" secondAttribute="trailing" id="BnS-x7-Jy7"/>
+                            <constraint firstItem="Ccb-ey-Mpp" firstAttribute="top" secondItem="N2p-OK-qQg" secondAttribute="top" id="PRz-Ma-QnT"/>
+                            <constraint firstItem="Ccb-ey-Mpp" firstAttribute="leading" secondItem="N2p-OK-qQg" secondAttribute="leading" id="z01-GT-brn"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Restaurant" id="utz-Da-rLq"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="mapView" destination="Ccb-ey-Mpp" id="W4B-K1-UYO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VRj-c8-2VU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2929" y="27"/>
+        </scene>
         <!--Notification-->
         <scene sceneID="KwV-cF-WHf">
             <objects>
@@ -588,6 +639,9 @@
         </systemColor>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

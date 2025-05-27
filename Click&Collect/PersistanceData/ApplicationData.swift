@@ -77,7 +77,7 @@ class ISOChroneData {
     }
     
     
-    func fetchLastObject<T: NSManagedObject>(ofType type: T.Type, context: NSManagedObjectContext) throws -> T? {
+   private func fetchLastObject<T: NSManagedObject>(ofType type: T.Type, context: NSManagedObjectContext) throws -> T? {
         let request = NSFetchRequest<T>(entityName: String(describing: type))
         
         // Sort by a property (e.g., creationDate or a timestamp, or objectID if you don’t have one)
@@ -91,6 +91,11 @@ class ISOChroneData {
         return result.first
     }
     
+    func getActiveZone() -> ISOChrone?{
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let last =  try! fetchLastObject(ofType: ISOChrone.self, context: context)
+        return last
+    }
     func updateCount(isReached:Bool){
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         

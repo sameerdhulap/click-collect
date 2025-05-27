@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var vwModeClickCollect: UIView!
     @IBOutlet weak var vwModeAsset: UIView!
     
+    @IBOutlet weak var btnEta: UIButton!
     @IBOutlet weak var btnRestaurantLocation: UIButton!
     @IBOutlet weak var lblRestaureantName: UILabel!
     let AssetMonitoringAtributes = ["ProtectedRegionSlot":String(AppConfig.liveTracking.ProtectedRegionSlot),
@@ -140,6 +141,51 @@ class ViewController: UIViewController {
             modalVC.modalTransitionStyle = .coverVertical // optional
             
             self.navigationController?.pushViewController(modalVC, animated: true)
+        }
+    }
+    @IBAction func onTapEta(_ sender: UIButton) {
+        if let zone = ISOChroneData().getActiveZone(){
+            if let attributes = zone.attribute{
+                guard let id: String = attributes["id"] else { return }
+                if let data = RegionIsochrones.getRegionFromId(id: id){
+                    
+                    let alertController = UIAlertController(title: "Eta", message: "Approximiatly \(data.durationText)", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                        // Handle OK button tap
+                    }
+                    alertController.addAction(okAction)
+                    present(alertController, animated: true, completion: nil)
+                }
+            }
+        }
+        else{
+            sender.isHidden = true
+        }
+    }
+    
+    @IBAction func onTapShowLocation(_ sender: UIButton) {
+        let storyboard = self.storyboard!
+        if let modalVC = storyboard.instantiateViewController(withIdentifier: "MapViewController") as? MapViewController {
+            modalVC.modalPresentationStyle = .formSheet // or .fullScreen, .pageSheet, etc.
+            modalVC.modalTransitionStyle = .coverVertical // optional
+            if let currentProfile = ApplicationData().getProfile() {
+                if(currentProfile.profile == "Click&Collect"){
+                    
+                    if let attributes = currentProfile.profileProperties {
+                        
+                        if let location = attributes["location"]{
+                            let coordinateArray = location.split(separator: ",").compactMap(Double.init)
+                            let coordinate = CLLocationCoordinate2D(latitude: coordinateArray[0], longitude: coordinateArray[1])
+                            modalVC.restaureantsLocation = coordinate
+                            modalVC.restaureantsInfo = attributes
+                            self.navigationController?.pushViewController(modalVC, animated: true)
+                        }
+                    }
+                }
+                else{
+                    debugPrint( "Something went wrong, Unknown Profile \(currentProfile.profile!)")
+                }
+            }
         }
     }
 }

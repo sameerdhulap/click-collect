@@ -53,7 +53,24 @@ class OrderViewController: UIViewController {
         
     }
     @IBAction func onTapLocateStore(_ sender: UIButton) {
-        //TODO: SHow Map and load store
+        let storyboard = self.storyboard!
+        if let modalVC = storyboard.instantiateViewController(withIdentifier: "MapViewController") as? MapViewController {
+            modalVC.modalPresentationStyle = .formSheet // or .fullScreen, .pageSheet, etc.
+            modalVC.modalTransitionStyle = .coverVertical // optional
+            
+            if let storeInfo = selectedStore{
+                modalVC.restaureantsLocation = storeInfo.location
+                
+                var addressLine = ""
+                if let address = storeInfo.address {
+                    if(address.lines.count > 0){
+                        addressLine = address.lines.joined(separator: ",")
+                    }
+                }
+                modalVC.restaureantsInfo = ["id": storeInfo.store_id, "name": storeInfo.name,"address": addressLine, "location": "\(storeInfo.coordinate.latitude),\(storeInfo.coordinate.longitude)", "radius": String(AppConfig.passiveTracking.isochroneDistance) ,"distanceMode": selectedMode]
+            }
+            self.navigationController?.pushViewController(modalVC, animated: true)
+        }
     }
     func fetchStore(location: CLLocationCoordinate2D) async -> [WMStoresService.Store]{
        
@@ -123,6 +140,7 @@ class OrderViewController: UIViewController {
         }
         
     }
+    
 }
 extension OrderViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
