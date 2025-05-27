@@ -47,7 +47,9 @@ extension MapViewController: WMMapViewDelegate {
         
         func mapViewDidFinishLoadingMap(_ mapView: WMMapView) {
             if let location = restaureantsLocation {
-                woosmapView.add(RestaurantAnnotation(coordinate: location, title: "Montpellier"))
+                woosmapView.add(RestaurantAnnotation(coordinate: location, title: ""))
+                woosmapView.setCenter( location, animated: true )
+                mapView.setZoomLevel(15, animated: true)
             }
         }
     
