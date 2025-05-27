@@ -28,9 +28,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var vwLog: UIView!
     @IBOutlet weak var lblCount: UILabel!
     
-    let AssetMonitoringAtributes = ["ProtectedRegionSlot":String(AppConfig.liveTracking.ProtectedRegionSlot),
-                                    "radius":String(AppConfig.liveTracking.poiRadius),
-                                    "action":String(AppConfig.liveTracking.poiRadius),
+    let AssetMonitoringAtributes = ["ProtectedRegionSlot":String(AppConfig.passiveTracking.ProtectedRegionSlot),
+                                    "radius":String(AppConfig.passiveTracking.poiRadius),
+                                    "action":String(AppConfig.passiveTracking.poiRadius),
                                     "optimizeDistanceRequest":"false"]
     
     let ClickAndCollectAtributes = ["optimizeDistanceRequest":"false"]

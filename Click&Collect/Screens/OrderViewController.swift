@@ -67,7 +67,7 @@ class OrderViewController: UIViewController {
                         addressLine = address.lines.joined(separator: ",")
                     }
                 }
-                modalVC.restaureantsInfo = ["id": storeInfo.store_id, "name": storeInfo.name,"address": addressLine, "location": "\(storeInfo.coordinate.latitude),\(storeInfo.coordinate.longitude)", "radius": String(AppConfig.passiveTracking.isochroneDistance) ,"distanceMode": selectedMode]
+                modalVC.restaureantsInfo = ["id": storeInfo.store_id, "name": storeInfo.name,"address": addressLine, "location": "\(storeInfo.coordinate.latitude),\(storeInfo.coordinate.longitude)", "radius": String(AppConfig.liveTracking.isochroneDistance) ,"distanceMode": selectedMode]
             }
             self.navigationController?.pushViewController(modalVC, animated: true)
         }
@@ -125,7 +125,7 @@ class OrderViewController: UIViewController {
                 }
             }
             
-            delegate?.OrderDelegate(self, OrderPlace: ["id": store.store_id, "name": store.name,"address": addressLine, "location": "\(store.coordinate.latitude),\(store.coordinate.longitude)", "radius": String(AppConfig.passiveTracking.isochroneDistance) ,"distanceMode": selectedMode])
+            delegate?.OrderDelegate(self, OrderPlace: ["id": store.store_id, "name": store.name,"address": addressLine, "location": "\(store.coordinate.latitude),\(store.coordinate.longitude)", "radius": String(AppConfig.liveTracking.isochroneDistance) ,"distanceMode": selectedMode])
             present(alertController, animated: true, completion: nil)
             
         }
