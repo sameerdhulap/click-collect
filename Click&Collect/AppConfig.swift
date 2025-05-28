@@ -13,6 +13,7 @@ struct AppConfig {
     struct passiveTracking {
         static let poiRadius: Int = 300 //meters
         static let ProtectedRegionSlot: Int = 0
+        static let distanceDisplacementFilter : Int = 30 //meters
     }
     
 }
