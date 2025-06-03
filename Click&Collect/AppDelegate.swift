@@ -129,7 +129,7 @@ extension AppDelegate{
             else if(currentProfile.profile == "Click&Collect"){
                 WoosmapGeofenceManager.shared.getLocationService().distanceAPIDataDelegate = dataEvent
                 WoosmapGeofenceManager.shared.startTracking(configurationProfile: .liveTracking)
-                WoosmapGeofenceManager.shared.distanceDisplacementFilter = Double(AppConfig.passiveTracking.distanceDisplacementFilter)
+                WoosmapGeofenceManager.shared.distanceDisplacementFilter = Double(AppConfig.liveTracking.distanceDisplacementFilter)
                 if let attributes:[String:String] = currentProfile.profileProperties{
                     if let mode = attributes["distanceMode"] {
                         if mode == "driving" {

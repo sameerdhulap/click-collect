@@ -67,6 +67,7 @@ class OrderViewController: UIViewController {
                         addressLine = address.lines.joined(separator: ",")
                     }
                 }
+                modalVC.restaureantsLocation = storeInfo.coordinate
                 modalVC.restaureantsInfo = ["id": storeInfo.store_id, "name": storeInfo.name,"address": addressLine, "location": "\(storeInfo.coordinate.latitude),\(storeInfo.coordinate.longitude)", "radius": String(AppConfig.liveTracking.isochroneDistance) ,"distanceMode": selectedMode]
             }
             self.navigationController?.pushViewController(modalVC, animated: true)
