@@ -13,8 +13,6 @@
 
 /* Begin PBXFileReference section */
 		5F0A3DE62DDDA2C400530B02 /* Click&Collect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Click&Collect.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5FE92F1F2DE07765006D38AA /* WoosmapGeofencing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WoosmapGeofencing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5FE92F212DE077F2006D38AA /* WoosmapGeofencing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WoosmapGeofencing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -71,8 +69,6 @@
 		5FE92F1E2DE07765006D38AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5FE92F212DE077F2006D38AA /* WoosmapGeofencing.framework */,
-				5FE92F1F2DE07765006D38AA /* WoosmapGeofencing.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -391,7 +387,7 @@
 			repositoryURL = "https://github.com/Woosmap/geofencing-ios-sdk-spm-release";
 			requirement = {
 				kind = exactVersion;
-				version = "4.3.12-beta1";
+				version = "4.3.12-beta2";
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
