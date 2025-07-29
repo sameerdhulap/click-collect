@@ -157,7 +157,7 @@ internal class WoosmapEvent: LocationServiceDelegate, SearchAPIDelegate, Regions
             else{
                 if let moreInfo = POIs.getPOIbyIdStore(idstore: POIregion.identifier){
                     content.title = "You're near to an asset!"
-                    content.body = "Have a break, have a burger"
+                    content.body = "Have a break, have a burger at \(moreInfo.name ?? "-") is \(moreInfo.openNow ? "open now" : "closed")"
                     // Create the request
                     let request = UNNotificationRequest(identifier: "woosmap_\(moreInfo.idstore ?? "-")",
                                                         content: content, trigger: nil)
@@ -167,7 +167,7 @@ internal class WoosmapEvent: LocationServiceDelegate, SearchAPIDelegate, Regions
                     let notificationCenter = UNUserNotificationCenter.current()
                     notificationCenter.add(request)
                     
-                    let _ = LogData().addNotification(title: "Inside circle zone of \(moreInfo.name ?? "-")", isInside: true, profile: config.profile!)
+                    let _ = LogData().addNotification(title: "Inside circle zone of \(moreInfo.name ?? "-") status:\(moreInfo.openNow ? "open now" : "closed")", isInside: true, profile: config.profile!)
                 }
                 
             }
