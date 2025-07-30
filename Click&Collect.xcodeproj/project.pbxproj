@@ -387,7 +387,7 @@
 			repositoryURL = "https://github.com/Woosmap/geofencing-ios-sdk-spm-release";
 			requirement = {
 				kind = exactVersion;
-				version = "4.3.14-beta1";
+				version = "4.3.14-beta2";
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
