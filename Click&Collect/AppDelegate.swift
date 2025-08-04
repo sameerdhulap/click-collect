@@ -64,6 +64,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.registerForRemoteNotifications()
         
         startMonitoringWithWoosmap()
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+
+        appearance.titleTextAttributes = [.foregroundColor: UIColor(named: "TextColor") ?? UIColor.red]
+        appearance.backgroundColor = UIColor(named: "paletteNav")
+
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+
+        
         return true
     }
 
