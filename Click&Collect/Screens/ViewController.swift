@@ -27,7 +27,14 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var vwLog: UIView!
     @IBOutlet weak var lblCount: UILabel!
-    
+    /// Flexible area below the mode cards, hosting the Asset Monitoring map.
+    @IBOutlet weak var vwMapContainer: UIView!
+    /// Stack holding the two mode cards and the flexible area.
+    @IBOutlet weak var svModes: UIStackView!
+
+    /// Apple map with the current user location, only visible in Asset Monitoring mode.
+    private lazy var assetMapView = AssetLocationMapView()
+
     let AssetMonitoringAtributes = ["ProtectedRegionSlot":String(AppConfig.passiveTracking.ProtectedRegionSlot),
                                     "radius":String(AppConfig.passiveTracking.poiRadius),
                                     "action":String(AppConfig.passiveTracking.poiRadius),
@@ -42,15 +49,12 @@ class ViewController: UIViewController {
         vwModeClickCollect.clipsToBounds = true
         vwModeAsset.layer.cornerRadius = 8
         vwModeAsset.clipsToBounds = true
+        setupAssetMap()
         if let currentProfile = ApplicationData().getProfile() {
             if(currentProfile.profile == "Asset Monitoring"){
-                vwModeAsset.isHidden = false
-                vwModeClickCollect.isHidden = !vwModeAsset.isHidden
-                vwLog.isHidden = !vwModeAsset.isHidden
+                applyMode(isAssetMonitoring: true)
             }else if(currentProfile.profile == "Click&Collect"){
-                vwModeAsset.isHidden = true
-                vwModeClickCollect.isHidden = !vwModeAsset.isHidden
-                vwLog.isHidden = !vwModeAsset.isHidden
+                applyMode(isAssetMonitoring: false)
                 if let zone = ISOChroneData().getActiveZone(){
                     lblCount.text = String(zone.distanceRequest)
                 }
@@ -83,16 +87,56 @@ class ViewController: UIViewController {
             if(newProfileAdded){
                 (UIApplication.shared.delegate as! AppDelegate).startMonitoringWithWoosmap()
             }
-            vwModeAsset.isHidden = false
-            vwModeClickCollect.isHidden = !vwModeAsset.isHidden
+            applyMode(isAssetMonitoring: true)
         }
-        
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleDistanceNotification(_:)),
                                                name: .distanceRequested,
                                                object: nil)
     }
-    
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        assetMapView.stopTracking()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if(!assetMapView.isHidden){
+            assetMapView.startTracking()
+        }
+    }
+
+    /// Mounts the map in the flexible area, above the distance-request log strip.
+    private func setupAssetMap() {
+        assetMapView.translatesAutoresizingMaskIntoConstraints = false
+        assetMapView.isHidden = true
+        vwMapContainer.addSubview(assetMapView)
+        NSLayoutConstraint.activate([
+            assetMapView.topAnchor.constraint(equalTo: vwMapContainer.topAnchor),
+            assetMapView.leadingAnchor.constraint(equalTo: vwMapContainer.leadingAnchor),
+            assetMapView.trailingAnchor.constraint(equalTo: vwMapContainer.trailingAnchor),
+            assetMapView.bottomAnchor.constraint(equalTo: vwLog.topAnchor)
+        ])
+    }
+
+    /// Single place where the two mode layouts are switched.
+    private func applyMode(isAssetMonitoring: Bool) {
+        vwModeAsset.isHidden = !isAssetMonitoring
+        vwModeClickCollect.isHidden = isAssetMonitoring
+        vwLog.isHidden = isAssetMonitoring
+        assetMapView.isHidden = !isAssetMonitoring
+        // The map fills the flexible area, so it does not need the wide card spacing.
+        svModes.spacing = isAssetMonitoring ? 12 : 87
+        if(isAssetMonitoring){
+            assetMapView.startTracking()
+        }
+        else{
+            assetMapView.stopTracking()
+        }
+    }
+
     
     @objc func handleDistanceNotification(_ notification: Notification) {
         //Update UI
@@ -120,9 +164,7 @@ class ViewController: UIViewController {
         if(newProfileAdded){
             if let currentProfile = ApplicationData().getProfile() {
                 if(currentProfile.profile == "Asset Monitoring"){
-                    vwModeAsset.isHidden = false
-                    vwModeClickCollect.isHidden = !vwModeAsset.isHidden
-                    vwLog.isHidden = !vwModeAsset.isHidden
+                    applyMode(isAssetMonitoring: true)
                 }
                 else{
                     debugPrint( "Something went wrong, Unknown Profile \(currentProfile.profile!)")
@@ -223,9 +265,7 @@ extension ViewController:OrderDelegate{
             let _ = ISOChroneData().addRestaurant(latitude:coordinate.latitude,longitude: coordinate.longitude, attribute: attributes)
             if let currentProfile = ApplicationData().getProfile() {
                if(currentProfile.profile == "Click&Collect"){
-                    vwModeAsset.isHidden = true
-                    vwModeClickCollect.isHidden = !vwModeAsset.isHidden
-                   vwLog.isHidden = !vwModeAsset.isHidden
+                   applyMode(isAssetMonitoring: false)
                    if let name = attributes["name"]{
                        if let address = attributes["address"]{
                            lblRestaureantName.text = "\(name) \n\(address)"

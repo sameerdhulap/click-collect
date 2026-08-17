@@ -1,2 +1,47 @@
-Click&Collect.xcodeproj/project.xcworkspace/xcuserdata/
-Click&Collect.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Xcode — per-user state (schemes, breakpoints, window layout)
+**/*.xcodeproj/xcuserdata/
+**/*.xcodeproj/project.xcworkspace/xcuserdata/
+**/*.xcworkspace/xcuserdata/
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.moved-aside
+
+# Xcode — build products & indexes
+build/
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.xcarchive
+*.xcresult
+
+# Swift Package Manager
+# Package.resolved is committed on purpose: it pins the Woosmap SDK versions.
+.build/
+.swiftpm/
+Packages/
+
+# CocoaPods / Carthage (unused today, kept so a future switch stays clean)
+Pods/
+Carthage/Build/
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# fastlane
+fastlane/report.xml
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# App debug dumps produced by the event-log export
+AppDump.zip

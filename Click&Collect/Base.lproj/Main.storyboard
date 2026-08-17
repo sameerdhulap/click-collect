@@ -257,6 +257,8 @@
                         <outlet property="lblCount" destination="HDU-qF-MwB" id="lwC-tU-psp"/>
                         <outlet property="lblRestaureantName" destination="Rz9-iJ-kcM" id="B0O-4x-Mr1"/>
                         <outlet property="vwLog" destination="ySi-zK-NS4" id="uxH-DX-pbo"/>
+                        <outlet property="vwMapContainer" destination="RGJ-FT-vU4" id="mAp-c0-nt1"/>
+                        <outlet property="svModes" destination="zPK-aC-39s" id="mAp-c0-nt2"/>
                         <outlet property="vwModeAsset" destination="sBJ-TC-eKS" id="6iH-rh-Yay"/>
                         <outlet property="vwModeClickCollect" destination="fWJ-bk-fcl" id="fb5-F5-h6C"/>
                     </connections>
