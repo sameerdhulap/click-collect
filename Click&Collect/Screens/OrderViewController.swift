@@ -222,13 +222,8 @@ class StoreCell: UITableViewCell {
         else{
             lblRestaurantName.text = "\(data.name)"
         }
-        if distance > 500 {
-            lblDistance.text = String(format: "Approx. %.1f Km away", distance/1000)
-        }
-        else{
-            lblDistance.text = String(format: "Approx. %.0f meters away", distance)
-        }
-        
+        lblDistance.text = distance.approximateDistanceText
+
     }
     
 }

@@ -5,6 +5,7 @@
 //  Created by WGS on 26/05/25.
 //
 import UIKit
+import CoreLocation
 
 internal extension URL {
     
@@ -228,7 +229,7 @@ extension NotificationViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath) as! NotificationCell
         let data = tableData[indexPath.row]
-        cell.fillDetails(title: data.title!, date: data.onDate!, mode: data.mode!)
+        cell.fillDetails(title: data.title!, date: data.onDate!, mode: data.mode!, distance: data.distance)
 //        cell.accessoryType = tableData[indexPath.row].store_id == selectedStore?.store_id ? .checkmark : .none
         return cell
     }
@@ -239,8 +240,15 @@ class NotificationCell: UITableViewCell {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var lblMode: UILabel!
-    func fillDetails(title:String, date:Date, mode:String){
-        lblTitle.text = title
+    /// - Parameter distance: metres from the POI when the region was entered, or
+    ///   `LogData.unknownDistance` when it is not known (exit events, or no fix at the time).
+    func fillDetails(title:String, date:Date, mode:String, distance: CLLocationDistance = LogData.unknownDistance){
+        if distance >= 0 {
+            lblTitle.text = "\(title)\n\(distance.approximateDistanceText)"
+        }
+        else{
+            lblTitle.text = title
+        }
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd hh:mm a"
         lblDate.text = formatter.string(from: date)

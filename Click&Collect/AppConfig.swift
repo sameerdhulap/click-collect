@@ -12,7 +12,7 @@ struct AppConfig {
     }
     
     struct passiveTracking {
-        static let poiRadius: Int = 300 //meters
+        static let poiRadius: Int = 100 //meters
         static let ProtectedRegionSlot: Int = 0
     }
     

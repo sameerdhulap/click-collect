@@ -218,7 +218,10 @@ actor WoosmapGeofenceActor: Actor {
                     
                     if let attributes:[String:String] = currentProfile.profileProperties{
                         if let r = attributes["radius"]{
-                            WoosmapGeofenceManager.shared.setPoiRadius(radius: r)
+                            // The SDK takes Any: an Int is a radius in metres, a String is the
+                            // name of a POI user-property to read the radius from. The profile
+                            // stores everything as text, so convert back before handing it over.
+                            WoosmapGeofenceManager.shared.setPoiRadius(radius: Int(r) ?? r)
                         }
                         if let slots = attributes["ProtectedRegionSlot"]{
                             try? WoosmapGeofenceManager.shared.setProtectedRegionSlot(Int(slots) ?? 0)

@@ -62,7 +62,7 @@ All tunables live in [AppConfig.swift](Click&Collect/AppConfig.swift):
 | Order | [OrderViewController.swift](Click&Collect/Screens/OrderViewController.swift) | Lists the 30 nearest stores (Woosmap Stores API) sorted by straight-line distance, lets the user pick walking/driving and place the order. |
 | Store map | [MapViewController.swift](Click&Collect/Screens/MapViewController.swift) | Woosmap `WMMapView` centred on the selected restaurant. |
 | Location map | [AssetLocationMapView.swift](Click&Collect/Screens/AssetLocationMapView.swift) | MapKit view embedded in the home screen: blue dot, an accuracy circle and a `lat, lon · ± n m` readout. |
-| Event log | [NotificationViewController.swift](Click&Collect/Screens/NotificationViewController.swift) | History of geofence notifications, plus a toolbar action that exports the databases for debugging. |
+| Event log | [NotificationViewController.swift](Click&Collect/Screens/NotificationViewController.swift) | History of geofence notifications — enter events also show how far the user was from the POI — plus a toolbar action that exports the databases for debugging. |
 | Monitored POIs | [PassiveTrackingPOIViewController.swift](Click&Collect/Screens/PassiveTrackingPOIViewController.swift) | The POIs the SDK is currently geofencing, with their open/closed status. Reached from the "POIs arround you" button on the event log. |
 
 ## How it fits together
