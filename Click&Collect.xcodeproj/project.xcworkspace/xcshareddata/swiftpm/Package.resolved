@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Woosmap/geofencing-ios-sdk-spm-release",
       "state" : {
-        "revision" : "64ebfeeab70d7fc69a8ab1068a7c989b48e0e335",
-        "version" : "4.3.14-beta2"
+        "revision" : "14494b8792acedadb4e3c994fc4ec913d9299fec",
+        "version" : "4.6.1"
       }
     },
     {

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5F0A3E0D2DDDECB000530B02 /* Woosmap in Frameworks */ = {isa = PBXBuildFile; productRef = 5F0A3E0C2DDDECB000530B02 /* Woosmap */; };
-		5F93D9A02DE58B94000AB689 /* WoosmapGeofencing in Frameworks */ = {isa = PBXBuildFile; productRef = 5F93D99F2DE58B94000AB689 /* WoosmapGeofencing */; };
+		5FCEFC1C2E812C89001336D5 /* WoosmapGeofencing in Frameworks */ = {isa = PBXBuildFile; productRef = 5FCEFC1B2E812C89001336D5 /* WoosmapGeofencing */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F93D9A02DE58B94000AB689 /* WoosmapGeofencing in Frameworks */,
+				5FCEFC1C2E812C89001336D5 /* WoosmapGeofencing in Frameworks */,
 				5F0A3E0D2DDDECB000530B02 /* Woosmap in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,7 +53,6 @@
 			isa = PBXGroup;
 			children = (
 				5F0A3DE82DDDA2C400530B02 /* Click&Collect */,
-				5FE92F1E2DE07765006D38AA /* Frameworks */,
 				5F0A3DE72DDDA2C400530B02 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,13 +63,6 @@
 				5F0A3DE62DDDA2C400530B02 /* Click&Collect.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		5FE92F1E2DE07765006D38AA /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -94,7 +86,7 @@
 			name = "Click&Collect";
 			packageProductDependencies = (
 				5F0A3E0C2DDDECB000530B02 /* Woosmap */,
-				5F93D99F2DE58B94000AB689 /* WoosmapGeofencing */,
+				5FCEFC1B2E812C89001336D5 /* WoosmapGeofencing */,
 			);
 			productName = "Click&Collect";
 			productReference = 5F0A3DE62DDDA2C400530B02 /* Click&Collect.app */;
@@ -108,7 +100,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1630;
-				LastUpgradeCheck = 1630;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					5F0A3DE52DDDA2C400530B02 = {
 						CreatedOnToolsVersion = 16.3;
@@ -126,7 +118,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				5F0A3E0B2DDDECB000530B02 /* XCRemoteSwiftPackageReference "sdk-ios-distribution" */,
-				5F93D99E2DE58B94000AB689 /* XCRemoteSwiftPackageReference "geofencing-ios-sdk-spm-release" */,
+				5FCEFC1A2E812C89001336D5 /* XCRemoteSwiftPackageReference "geofencing-ios-sdk-spm-release" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5F0A3DE72DDDA2C400530B02 /* Products */;
@@ -288,6 +280,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -345,6 +338,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -382,12 +376,12 @@
 				minimumVersion = 1.1.0;
 			};
 		};
-		5F93D99E2DE58B94000AB689 /* XCRemoteSwiftPackageReference "geofencing-ios-sdk-spm-release" */ = {
+		5FCEFC1A2E812C89001336D5 /* XCRemoteSwiftPackageReference "geofencing-ios-sdk-spm-release" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Woosmap/geofencing-ios-sdk-spm-release";
 			requirement = {
 				kind = exactVersion;
-				version = "4.3.14-beta2";
+				version = 4.6.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -398,9 +392,9 @@
 			package = 5F0A3E0B2DDDECB000530B02 /* XCRemoteSwiftPackageReference "sdk-ios-distribution" */;
 			productName = Woosmap;
 		};
-		5F93D99F2DE58B94000AB689 /* WoosmapGeofencing */ = {
+		5FCEFC1B2E812C89001336D5 /* WoosmapGeofencing */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5F93D99E2DE58B94000AB689 /* XCRemoteSwiftPackageReference "geofencing-ios-sdk-spm-release" */;
+			package = 5FCEFC1A2E812C89001336D5 /* XCRemoteSwiftPackageReference "geofencing-ios-sdk-spm-release" */;
 			productName = WoosmapGeofencing;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -78,7 +78,7 @@ class OrderViewController: UIViewController {
         var filterStore: [WMStoresService.Store] = []
         let assetRequest = WMStoresService.SearchRequest()
         assetRequest.query = nil
-        assetRequest.limit = 5
+        assetRequest.limit = 30
         assetRequest.location = WMLocation.init(coordinates:  location)
         var assetResult: [WMStoresService.Store]?
         do{
@@ -222,13 +222,8 @@ class StoreCell: UITableViewCell {
         else{
             lblRestaurantName.text = "\(data.name)"
         }
-        if distance > 500 {
-            lblDistance.text = String(format: "Approx. %.1f Km away", distance/1000)
-        }
-        else{
-            lblDistance.text = String(format: "Approx. %.0f meters away", distance)
-        }
-        
+        lblDistance.text = distance.approximateDistanceText
+
     }
     
 }

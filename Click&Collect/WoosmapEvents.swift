@@ -12,7 +12,9 @@ import CoreLocation
 internal class WoosmapEvent: LocationServiceDelegate, SearchAPIDelegate, RegionsServiceDelegate, VisitServiceDelegate, DistanceAPIDelegate{
     private var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
     private var backgroundTaskLoop: Int = 30
-    
+    /// Latest fix reported by the SDK, used to measure the gap to a POI on region entry.
+    private var lastKnownLocation: CLLocation?
+
     internal init() {}
     
     func killBackgroundTask(){
@@ -53,6 +55,7 @@ internal class WoosmapEvent: LocationServiceDelegate, SearchAPIDelegate, Regions
     
     ///Updated when new location capture by device
     internal func tracingLocation(location: Location) {
+        lastKnownLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
         //Save it in history
         NotificationCenter.default.post(name: .newLocationSaved, object: self, userInfo: ["Location": location])
         debugPrint("Location Updated")
@@ -124,6 +127,28 @@ internal class WoosmapEvent: LocationServiceDelegate, SearchAPIDelegate, Regions
     private func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int, Int) {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
+
+    /// How far the user is from the centre of `POIregion` when the region is entered.
+    /// Returns `LogData.unknownDistance` when no fix is available.
+    private func distanceFromUser(to POIregion: Region) -> CLLocationDistance {
+        guard let user = lastKnownLocation ?? mostRecentStoredLocation() else {
+            return LogData.unknownDistance
+        }
+        let poi = CLLocation(latitude: POIregion.latitude, longitude: POIregion.longitude)
+        return user.distance(from: poi)
+    }
+
+    /// Fallback for the case where the app was woken by the region event itself and has
+    /// not received a live fix yet: the freshest location the SDK has stored.
+    private func mostRecentStoredLocation() -> CLLocation? {
+        let latest = Locations.getAll()
+            .compactMap { location -> (Date, CLLocation)? in
+                guard let date = location.date else { return nil }
+                return (date, CLLocation(latitude: location.latitude, longitude: location.longitude))
+            }
+            .max(by: { $0.0 < $1.0 })
+        return latest?.1
+    }
     
     
     
@@ -137,6 +162,7 @@ internal class WoosmapEvent: LocationServiceDelegate, SearchAPIDelegate, Regions
         var content = UNMutableNotificationContent()
         
         if POIregion.didEnter == true {
+            let distanceToPOI = distanceFromUser(to: POIregion)
             if(isIsoChrone){
                 content.title = "Your burger is ready!"
                 content.body = "Your order will be ready in next \(Int(POIregion.radius / 60)) minute(s)"
@@ -152,7 +178,7 @@ internal class WoosmapEvent: LocationServiceDelegate, SearchAPIDelegate, Regions
                 notificationCenter.add(request)
                 ISOChroneData().updateCount(isReached: true)
                 
-                let _ = LogData().addNotification(title: "ISOChrone Zone \(POIregion.identifier)", isInside: true, profile: config.profile!)
+                let _ = LogData().addNotification(title: "ISOChrone Zone \(POIregion.identifier)", isInside: true, profile: config.profile!, distance: distanceToPOI)
             }
             else{
                 if let moreInfo = POIs.getPOIbyIdStore(idstore: POIregion.identifier){
@@ -167,7 +193,7 @@ internal class WoosmapEvent: LocationServiceDelegate, SearchAPIDelegate, Regions
                     let notificationCenter = UNUserNotificationCenter.current()
                     notificationCenter.add(request)
                     
-                    let _ = LogData().addNotification(title: "Inside circle zone of \(moreInfo.name ?? "-") status:\(moreInfo.openNow ? "open now" : "closed")", isInside: true, profile: config.profile!)
+                    let _ = LogData().addNotification(title: "Inside circle zone of \(moreInfo.name ?? "-") status:\(moreInfo.openNow ? "open now" : "closed")", isInside: true, profile: config.profile!, distance: distanceToPOI)
                 }
                 
             }
