@@ -31,7 +31,6 @@ class DictionaryStringTransformer: ValueTransformer {
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "CollectionBox")
         container.loadPersistentStores { storeDescription, error in
@@ -118,7 +117,6 @@ extension AppDelegate{
     public func startMonitoringWithWoosmap(){
 //        if let currentProfile = ApplicationData().getProfile() {
             WMSettings.shared().key = AppConfig.privateKey
-            let worker = WoosmapGeofenceActor()
             Task {
                 await worker.start()
             }

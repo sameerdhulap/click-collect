@@ -78,7 +78,7 @@ class OrderViewController: UIViewController {
         var filterStore: [WMStoresService.Store] = []
         let assetRequest = WMStoresService.SearchRequest()
         assetRequest.query = nil
-        assetRequest.limit = 5
+        assetRequest.limit = 30
         assetRequest.location = WMLocation.init(coordinates:  location)
         var assetResult: [WMStoresService.Store]?
         do{
