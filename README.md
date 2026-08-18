@@ -52,6 +52,7 @@ All tunables live in [AppConfig.swift](Click&Collect/AppConfig.swift):
 | `liveTracking.isochroneDistance` | 10 min | Isochrone radius requested around the restaurant (stored in seconds as `minutes × 60`) |
 | `liveTracking.distanceDisplacementFilter` | 30 m | Minimum displacement before a new Distance API call |
 | `passiveTracking.poiRadius` | 300 m | Radius of the circular geofences built around nearby stores |
+| `passiveTracking.poiRadiusProperty` | `radius` | Store user property the POI radius is read from — same key the SDK reads by default; `poiRadius` is the fallback when a store omits it |
 | `passiveTracking.ProtectedRegionSlot` | 0 | Number of the 20 iOS region slots reserved for the app's own regions |
 
 ## Screens
@@ -61,7 +62,7 @@ All tunables live in [AppConfig.swift](Click&Collect/AppConfig.swift):
 | Home | [ViewController.swift](Click&Collect/Screens/ViewController.swift) | Shows the active mode. In Asset Monitoring it displays an Apple map with the user location; in Click & Collect it shows the restaurant, the ETA and the Distance API call counter. |
 | Order | [OrderViewController.swift](Click&Collect/Screens/OrderViewController.swift) | Lists the 30 nearest stores (Woosmap Stores API) sorted by straight-line distance, lets the user pick walking/driving and place the order. |
 | Store map | [MapViewController.swift](Click&Collect/Screens/MapViewController.swift) | Woosmap `WMMapView` centred on the selected restaurant. |
-| Location map | [AssetLocationMapView.swift](Click&Collect/Screens/AssetLocationMapView.swift) | MapKit view embedded in the home screen: blue dot, an accuracy circle and a `lat, lon · ± n m` readout. |
+| Location map | [AssetLocationMapView.swift](Click&Collect/Screens/AssetLocationMapView.swift) | MapKit view embedded in the home screen: blue dot, an accuracy circle and a `lat, lon · ± n m` readout. A **POIs** switch overlays the 20 nearest stores (Woosmap Stores API) with the geofence radius each one would get; they are fetched only when the switch is turned on, never on location updates. |
 | Event log | [NotificationViewController.swift](Click&Collect/Screens/NotificationViewController.swift) | History of geofence notifications — enter events also show how far the user was from the POI — plus a toolbar action that exports the databases for debugging. |
 | Monitored POIs | [PassiveTrackingPOIViewController.swift](Click&Collect/Screens/PassiveTrackingPOIViewController.swift) | The POIs the SDK is currently geofencing, with their open/closed status. Reached from the "POIs arround you" button on the event log. |
 

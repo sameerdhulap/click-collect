@@ -13,6 +13,9 @@ struct AppConfig {
     
     struct passiveTracking {
         static let poiRadius: Int = 100 //meters
+        /// Store user property the POI radius is read from, matching the key the
+        /// geofencing SDK reads by default. `poiRadius` is used when a store omits it.
+        static let poiRadiusProperty: String = "radius"
         static let ProtectedRegionSlot: Int = 0
     }
     
