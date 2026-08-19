@@ -95,6 +95,10 @@ internal class WoosmapEvent: LocationServiceDelegate, SearchAPIDelegate, Regions
     /// Called  when user is exited Geofence zone
     internal func didExitPOIRegion(POIregion: Region) {
         NotificationCenter.default.post(name: .didEventPOIRegion, object: self, userInfo: ["Region": POIregion])
+        // The SDK reports exits only here, so this is the only path that can raise the
+        // "leaving a geofence" notification. Exit rows are logged with type "circle" even
+        // for an isochrone, so the enter type is what decides the wording.
+        formatNotification(POIregion: POIregion, isIsoChrone: POIregion.type == "isochrone")
     }
     
     /// Called  when user is inside Work Geofence zone
@@ -126,6 +130,16 @@ internal class WoosmapEvent: LocationServiceDelegate, SearchAPIDelegate, Regions
     
     private func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int, Int) {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    }
+
+    /// Time spent in a region, as "1 hours 2 minutes 3 seconds".
+    private func spentTimeText(_ spentTime: Double) -> String {
+        let (hours, minutes, seconds) = secondsToHoursMinutesSeconds(Int(spentTime))
+        var parts: [String] = []
+        if hours > 0 { parts.append("\(hours) hours") }
+        if minutes > 0 { parts.append("\(minutes) minutes") }
+        if seconds > 0 { parts.append("\(seconds) seconds") }
+        return parts.isEmpty ? "less than a second" : parts.joined(separator: " ")
     }
 
     /// How far the user is from the centre of `POIregion` when the region is entered.
@@ -199,37 +213,20 @@ internal class WoosmapEvent: LocationServiceDelegate, SearchAPIDelegate, Regions
             }
         }
         else{
-            //Show exit notification
-            if let moreInfo = POIs.getPOIbyIdStore(idstore: POIregion.identifier){
-                content.title = "You`re leaving a geofence!"
-                let (h,m,s) = secondsToHoursMinutesSeconds(Int(POIregion.spentTime))
-                var timeformat = ""
-                if(h > 0){
-                    timeformat = "\(timeformat)\(h) \("hours")"
-                }
-                if(m > 0){
-                    timeformat = "\(timeformat) \(m) \("minutes")"
-                }
-                
-                if(s > 0){
-                    timeformat = "\(timeformat) \(s) \("seconds")"
-                }
-                
-                timeformat = timeformat.trimmingCharacters(in: .whitespaces)
-                content.body = String(format: "You spent.",
-                                      "\(timeformat)",
-                                      moreInfo.name ?? "" )
-                content.categoryIdentifier = "woosmap"
-                // Create the request
-                let request = UNNotificationRequest(identifier: "woosmap_\(moreInfo.idstore ?? "-")",
-                                                    content: content, trigger: nil)
-                // Schedule the request with the system.
-                let notificationCenter = UNUserNotificationCenter.current()
-                notificationCenter.add(request)
-                
-                let _ = LogData().addNotification(title: "Outside circle zone of \(moreInfo.name ?? "-")", isInside: false, profile: config.profile!)
-            }
-            
+            //Show exit notification. The POI is only used for its name: an exit from a region
+            //with no matching POI (an isochrone around a store that was never searched) still
+            //has to be notified and logged.
+            let name = POIs.getPOIbyIdStore(idstore: POIregion.identifier)?.name ?? POIregion.identifier
+            content.title = "You`re leaving a geofence!"
+            content.body = String(format: "You spent %@ at %@", spentTimeText(POIregion.spentTime), name)
+            content.categoryIdentifier = "woosmap"
+            // Create the request
+            let request = UNNotificationRequest(identifier: "woosmap_\(POIregion.identifier)",
+                                                content: content, trigger: nil)
+            // Schedule the request with the system.
+            notificationCenter.add(request)
+
+            let _ = LogData().addNotification(title: "Outside zone of \(name)", isInside: false, profile: config.profile!)
         }
     }
 }
