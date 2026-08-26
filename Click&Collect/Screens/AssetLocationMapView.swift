@@ -10,16 +10,20 @@ import MapKit
 import Woosmap
 
 /// Pin for a Woosmap store, carrying the geofence radius read from its user properties.
+/// Selecting it opens a callout with the store id — the same id the geofence events and
+/// the notification log use, so a pin can be matched to an event.
 private final class POIAnnotation: NSObject, MKAnnotation {
     let coordinate: CLLocationCoordinate2D
     let title: String?
     let subtitle: String?
+    let identifier: String
     let radius: CLLocationDistance
 
     init(store: WMStoresService.Store, radius: CLLocationDistance) {
         self.coordinate = store.location
         self.title = store.name
-        self.subtitle = String(format: "Geofence radius %.0f m", radius)
+        self.identifier = store.store_id
+        self.subtitle = String(format: "ID %@  ·  radius %.0f m", store.store_id, radius)
         self.radius = radius
     }
 }
