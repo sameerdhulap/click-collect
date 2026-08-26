@@ -4,8 +4,13 @@
 //
 //  Created by WGS on 26/05/25.
 //
+import Foundation
+
 struct AppConfig {
-    static let privateKey: String = "3cd8ada3-e14f-47d1-90b4-5587c824ba8a"
+    /// Woosmap private API key. Defined as `DEFAULT_PRIVATE_KEY` in `AppSecret.xcconfig`,
+    /// substituted into the `WMKey` Info.plist entry at build time and read back here, so
+    /// the key never lives in source. Empty when the xcconfig is missing — API calls then fail.
+    static let privateKey: String = Bundle.main.object(forInfoDictionaryKey: "WMKey") as? String ?? ""
     struct liveTracking {
         static let isochroneDistance: Int = 10 //minutes
         static let distanceDisplacementFilter : Int = 30 //meters

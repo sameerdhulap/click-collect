@@ -13,6 +13,7 @@
 
 /* Begin PBXFileReference section */
 		5F0A3DE62DDDA2C400530B02 /* Click&Collect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Click&Collect.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F0A3E102DDDA2C600530B02 /* AppSecret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppSecret.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -52,6 +53,7 @@
 		5F0A3DDD2DDDA2C400530B02 = {
 			isa = PBXGroup;
 			children = (
+				5F0A3E102DDDA2C600530B02 /* AppSecret.xcconfig */,
 				5F0A3DE82DDDA2C400530B02 /* Click&Collect */,
 				5F0A3DE72DDDA2C400530B02 /* Products */,
 			);
@@ -223,6 +225,7 @@
 		};
 		5F0A3DFC2DDDA2C600530B02 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F0A3E102DDDA2C600530B02 /* AppSecret.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -288,6 +291,7 @@
 		};
 		5F0A3DFD2DDDA2C600530B02 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F0A3E102DDDA2C600530B02 /* AppSecret.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
